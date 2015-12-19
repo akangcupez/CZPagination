@@ -92,10 +92,10 @@ class CZPaginaqtion extends CI_Model
         {
             if($qry = $this->db->query($this->sql, $this->params))
             {
-                $this->total_rows = $qry->num_rows();
+                return $qry->num_rows();
             }
         }
-        $this->total_rows = 0;
+        return 0;
     }
 
     private function set_row_number()
@@ -112,11 +112,30 @@ class CZPaginaqtion extends CI_Model
         return ' LIMIT ' . $start_offset . ', ' . $this->row_per_page;
     }
 
+    /**
+     * <h4>Get all config</h4>
+     *
+     * @return array
+     */
     public function get_config() { return $this->config; }
 
+    /**
+     * Get config value from config key
+     *
+     * @param string $key
+     * @return mixed
+     */
     public function get_config_item($key) { return $this->config[$key]; }
 
-    public function set_config($config)
+    /**
+     * <h4>Set config</h4>
+     * Call this method before calling initialize() in chained mode.
+     * DO NOT pass another config var to initialize() if using this method
+     *
+     * @param array $config
+     * @return $this
+     */
+    public function set_config(array $config)
     {
         if($this->is_valid_array($config))
         {
@@ -131,6 +150,13 @@ class CZPaginaqtion extends CI_Model
         return $this;
     }
 
+    /**
+     * <h4>Initialize pagination</h4>
+     * Can be chained with get_data() method.
+     *
+     * @param null $config
+     * @return $this
+     */
     public function initialize($config = null)
     {
         if($this->is_valid_array($config)) $this->set_config($config);
@@ -253,8 +279,21 @@ class CZPaginaqtion extends CI_Model
         }
     }
 
+    /**
+     * <h4>Get data from query result</h4>
+     * <p>Call this method after initialize()</p>
+     * <p>row number (row_num) will be automatically generated in the result</p>
+     *
+     * @return null|array
+     */
     public function get_data() { return $this->data_table; }
 
+    /**
+     * <h4>Generate pagination links</h4>
+     * Call this method after initialize()
+     *
+     * @return null|string
+     */
     public function create_links()
     {
         $pagination = null;
@@ -266,7 +305,7 @@ class CZPaginaqtion extends CI_Model
             if($this->is_valid_number($this->pager['first'])) $pagination .= $this->generate_list($this->pager['first'], $this->config['first_link']);
             if($this->is_valid_number($this->pagination['prev'])) $pagination .= $this->generate_list($this->pager['prev'], $this->config['prev_link']);
 
-            if(is_valid_array($this->pager['pages']))
+            if($this->is_valid_array($this->pager['pages']))
             {
                 foreach($this->pager['pages'] as $page)
                 {

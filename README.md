@@ -1,2 +1,2 @@
 # CZPagination
-CI Pagination Library
+Codeigniter Pagination Library

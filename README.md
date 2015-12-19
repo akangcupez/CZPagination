@@ -1,5 +1,5 @@
 # CZPagination
-***
+
 ### Codeigniter Pagination Library
 This library is using Twitter Bootstrap and Font-awesome html-css based style. But, it may also configured for another style as you wish. 
 
@@ -9,18 +9,17 @@ The difference is that this library will not just create pagination links, but a
 Another advantage is that this library will generate LIMIT for your query. Hence, we just need to pass 'sql' without counting and adding LIMIT (e.g `"SELECT * FROM table_name"`)
 
 # Requirements
-***
+
 * Codeigniter v3+
 * Twitter Bootstrap (optional)
 * Font-awesome (if you don't want to load the icons, then configurations for first,prev,next and last link must be modified)
 
 # Installation
-***
+
 1. Put this file into your codeigniter's application/library folder
 2. Load the library
 
 # Usage
-***
 
 Load the library
 

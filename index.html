@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="CZPagination : Codeigniter Pagination Library">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>CZPagination</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/akangcupez/CZPagination">View on GitHub</a>
+
+          <h1 id="project_title">CZPagination</h1>
+          <h2 id="project_tagline">Codeigniter Pagination Library</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/akangcupez/CZPagination/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/akangcupez/CZPagination/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="czpagination" class="anchor" href="#czpagination" aria-hidden="true"><span class="octicon octicon-link"></span></a>CZPagination</h1>
+
+<hr>
+
+<h3>
+<a id="codeigniter-pagination-library" class="anchor" href="#codeigniter-pagination-library" aria-hidden="true"><span class="octicon octicon-link"></span></a>Codeigniter Pagination Library</h3>
+
+<p>This library is using Twitter Bootstrap and Font-awesome html-css based style. But, it may also configured for another style as you wish. </p>
+
+<p>Most of configurations are using identical parameters from built-in codeigniter pagination library, so you might be able to adapt easily using this library.
+The difference is that this library will not just create pagination links, but also provide data result from your query by passing the 'sql' and 'params' variable.</p>
+
+<p>Another advantage is that this library will generate LIMIT for your query. Hence, we just need to pass 'sql' without counting and adding LIMIT (e.g <code>"SELECT * FROM table_name"</code>)</p>
+
+<h1>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h1>
+
+<hr>
+
+<ul>
+<li>Codeigniter v3+</li>
+<li>Twitter Bootstrap (optional)</li>
+<li>Font-awesome (if you don't want to load the icons, then configurations for first,prev,next and last link must be modified)</li>
+</ul>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<hr>
+
+<ol>
+<li>Put this file into your codeigniter's application/library folder</li>
+<li>Load the library</li>
+</ol>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<hr>
+
+<p>Load the library</p>
+
+<pre><code>$this-&gt;load-&gt;library('CZPagination');
+</code></pre>
+
+<p>Setup SQL and Parameters (no need to add LIMIT)</p>
+
+<pre><code>$sql = "SELECT * FROM table_name WHERE ID = ?";
+$params = array($id);
+</code></pre>
+
+<p>Define the page number (assumes using page segment)</p>
+
+<pre><code>$page_number = $this-&gt;uri-&gt;segment(3);
+</code></pre>
+
+<p>Setup config and execute (see examples)</p>
+
+<p><strong>Basic Example:</strong></p>
+
+<pre><code>$config = array(
+    'base_url' =&gt; 'http://domain',
+    'sql' =&gt; $sql,
+    'params' =&gt; $params,
+    'per_page' =&gt; 20,
+    'page_number' =&gt; $page_number
+);
+
+$cz = new CZPagination();
+$cz-&gt;initialize($config);
+$data = $cz-&gt;get_data();
+$pagination = $cz-&gt;create_links();
+</code></pre>
+
+<p><strong>More Configurations Example:</strong></p>
+
+<pre><code>$config = array(
+    'base_url' =&gt; 'http://domain',
+    'sql' =&gt; $sql, 
+    'params' =&gt; $params,
+    'page_number' =&gt; $page_number,
+    'full_tag_open' =&gt; '&lt;ul class="pagination"&gt;',
+    'full_tag_close' =&gt; '&lt;/ul&gt;',
+    'page_tag_open' =&gt; '&lt;li&gt;',
+    'page_tag_close' =&gt; '&lt;/li&gt;',
+    'first_link' =&gt; '&lt;span&gt;&lt;i class="fa fa-angle-double-left"&gt;&lt;/i&gt;&lt;/span&gt;',
+    'last_link' =&gt; '&lt;span&gt;&lt;i class="fa fa-angle-double-right"&gt;&lt;/i&gt;&lt;/span&gt;',
+    'prev_link' =&gt; '&lt;span&gt;&lt;i class="fa fa-angle-left"&gt;&lt;/i&gt;&lt;/span&gt;',
+    'next_link' =&gt; '&lt;span&gt;&lt;i class="fa fa-angle-right"&gt;&lt;/i&gt;&lt;/span&gt;',
+    'cur_tag_open' =&gt; '&lt;li class="active"&gt;',
+    'cur_tag_close' =&gt; '&lt;/li&gt;'
+);
+
+$cz = new CZPagination();
+$data = $cz-&gt;initialize($config)-&gt;get_data();
+$pagination = $cz-&gt;create_links();
+
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">CZPagination maintained by <a href="https://github.com/akangcupez">akangcupez</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

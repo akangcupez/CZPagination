@@ -78,17 +78,17 @@ class CZPaginaqtion extends CI_Model
         parent::__construct();
     }
 
-    private function is_valid_array($array) { return (!is_null($array) && is_array($array) && count($array) > 0); }
-
-    private function is_valid_string($string) { return (!(is_null($string) || empty($string))); }
-
-    private function is_valid_number($number) { return ($this->is_valid_string($number) && intval($number) > 0); }
+    private function validate_value($value) { return (!(is_null($value) || empty($value))); }
+    private function validate_array($value) { return ($this->validate_value($value) && is_array($value) && count($value) > 0); }
+    private function validate_string($value) { return ($this->validate_value($value) && is_string($value)); }
+    private function validate_int($value) { return ($this->validate_value($value) && is_int($value)); }
+    private function validate_num($value) { return ($this->validate_int($value) && intval($value) > 0); }
 
     private function set_trailing_url($string, $symbol) { return (substr($string, -1, 1) !== $symbol) ? $string . $symbol : $string; }
 
     private function get_total_rows()
     {
-        if($this->is_valid_string($this->sql))
+        if($this->validate_string($this->sql))
         {
             if($qry = $this->db->query($this->sql, $this->params))
             {
@@ -137,7 +137,7 @@ class CZPaginaqtion extends CI_Model
      */
     public function set_config(array $config)
     {
-        if($this->is_valid_array($config))
+        if($this->validate_array($config))
         {
             foreach($config as $key => $val)
             {
@@ -159,13 +159,13 @@ class CZPaginaqtion extends CI_Model
      */
     public function initialize($config = null)
     {
-        if($this->is_valid_array($config)) $this->set_config($config);
+        if($this->validate_array($config)) $this->set_config($config);
 
-        $base_url = ($this->is_valid_string($this->config['base_url'])) ? $this->config['base_url'] : null;
+        $base_url = ($this->validate_string($this->config['base_url'])) ? $this->config['base_url'] : null;
         if(!is_null($base_url)) $this->config['base_url'] = $this->set_trailing_url($base_url, '/');
 
         $this->sql          = $this->config['sql'];
-        $this->params       = $this->is_valid_array($this->config['params']) ? $this->config['params'] : false;
+        $this->params       = $this->validate_array($this->config['params']) ? $this->config['params'] : false;
         $this->total_rows   = $this->get_total_rows();
 
         $this->num_links    = ceil((intval($this->config['num_links']) / 2) - 1);
@@ -252,7 +252,7 @@ class CZPaginaqtion extends CI_Model
 
     private function generate_list($page_number, $display_text)
     {
-        if($this->is_valid_number($page_number))
+        if($this->validate_num($page_number))
         {
             $prefix = $this->config['page_tag_open'];
             $suffix = $this->config['page_tag_close'];
@@ -289,6 +289,14 @@ class CZPaginaqtion extends CI_Model
     public function get_data() { return $this->data_table; }
 
     /**
+     * <h4>Get non-formatted pagination</h4>
+     * <p>Call this method after initialize()</p>
+     *
+     * @return null|array
+     */
+    public function get_pager(){ return $this->pager; }
+
+    /**
      * <h4>Generate pagination links</h4>
      * Call this method after initialize()
      *
@@ -298,14 +306,14 @@ class CZPaginaqtion extends CI_Model
     {
         $pagination = null;
 
-        if($this->is_valid_array($this->pager))
+        if($this->validate_array($this->pager))
         {
             $pagination = $this->config['full_tag_open'];
 
-            if($this->is_valid_number($this->pager['first'])) $pagination .= $this->generate_list($this->pager['first'], $this->config['first_link']);
-            if($this->is_valid_number($this->pagination['prev'])) $pagination .= $this->generate_list($this->pager['prev'], $this->config['prev_link']);
+            if($this->validate_num($this->pager['first'])) $pagination .= $this->generate_list($this->pager['first'], $this->config['first_link']);
+            if($this->validate_num($this->pagination['prev'])) $pagination .= $this->generate_list($this->pager['prev'], $this->config['prev_link']);
 
-            if($this->is_valid_array($this->pager['pages']))
+            if($this->validate_array($this->pager['pages']))
             {
                 foreach($this->pager['pages'] as $page)
                 {
@@ -313,8 +321,8 @@ class CZPaginaqtion extends CI_Model
                 }
             }
 
-            if($this->is_valid_number($this->pager['next'])) $pagination .= $this->generate_list($this->pager['next'], $this->config['next_link']);
-            if($this->is_valid_number($this->pagination['last'])) $pagination .= $this->generate_list($this->pager['last'], $this->config['last_link']);
+            if($this->validate_num($this->pager['next'])) $pagination .= $this->generate_list($this->pager['next'], $this->config['next_link']);
+            if($this->validate_num($this->pagination['last'])) $pagination .= $this->generate_list($this->pager['last'], $this->config['last_link']);
 
             $pagination .= $this->config['full_tag_close'];
         }

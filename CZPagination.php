@@ -36,7 +36,7 @@
  * @property CI_DB_driver $db
  *
  */
-class CZPaginaqtion extends CI_Model
+class CZPagination extends CI_Model
 {
     private $config = array
     (

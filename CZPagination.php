@@ -206,9 +206,9 @@ class CZPagination extends CI_Model
         return $this;
     }
 
-    private function show_first() { return ($this->active_page > $this->num_links); }
+    private function show_first() { return ($this->active_page > ($this->num_links + 1)); }
 
-    private function show_last() { return (($this->active_page < ($this->num_links + 1)) && ($this->active_page > $this->num_links)); }
+    private function show_last() { return ($this->active_page < ($this->num_links + 2)); }
 
     private function create_pager()
     {
@@ -221,7 +221,7 @@ class CZPagination extends CI_Model
             {
                 $pager['first'] = ($this->show_first() === true) ? 1 : '';
                 $pager['prev']  = ($this->active_page - 1);
-                for($idx = ($this->active_page - $this->total_links); $idx < $this->active_page; $idx++)
+                for($idx = ($this->active_page - $this->num_links); $idx < $this->active_page; $idx++)
                 {
                     if($idx > 0) $pager['pages'][] = $idx;
                 }
@@ -238,7 +238,7 @@ class CZPagination extends CI_Model
             for($idx = ($this->active_page + 1); $idx <= $this->total_links; $idx++)
             {
                 $pager['pages'][] = $idx;
-                if($idx >= ($this->active_page + $this->total_links)) break;
+                if($idx >= ($this->active_page + $this->num_links)) break;
             }
 
             if($this->active_page != $this->total_links)
@@ -315,8 +315,8 @@ class CZPagination extends CI_Model
         {
             $pagination = $this->config['full_tag_open'];
 
-            if($this->validate_num($this->pager['first'])) $pagination .= $this->generate_list($this->pager['first'], $this->config['first_link']);
-            if($this->validate_num($this->pagination['prev'])) $pagination .= $this->generate_list($this->pager['prev'], $this->config['prev_link']);
+            $pagination .= $this->generate_list($this->pager['first'], $this->config['first_link']);
+            $pagination .= $this->generate_list($this->pager['prev'], $this->config['prev_link']);
 
             if($this->validate_array($this->pager['pages']))
             {
@@ -326,8 +326,8 @@ class CZPagination extends CI_Model
                 }
             }
 
-            if($this->validate_num($this->pager['next'])) $pagination .= $this->generate_list($this->pager['next'], $this->config['next_link']);
-            if($this->validate_num($this->pagination['last'])) $pagination .= $this->generate_list($this->pager['last'], $this->config['last_link']);
+            $pagination .= $this->generate_list($this->pager['next'], $this->config['next_link']);
+            $pagination .= $this->generate_list($this->pager['last'], $this->config['last_link']);
 
             $pagination .= $this->config['full_tag_close'];
         }

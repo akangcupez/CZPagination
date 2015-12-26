@@ -186,17 +186,21 @@ class CZPagination extends CI_Model
 
         $sql = $this->sql . $this->set_limit();
         $params = $this->params;
-        $data = $this->db->query($sql, $params);
-        if(!is_null($data))
+        if($qry = $this->db->query($sql, $params))
         {
-            for($idx = 0; $idx < count($data); $idx++)
+            $data = $qry->result_array();
+            if($this->validate_array($data))
             {
-                $this->row_number++;
+                for($idx = 0; $idx < count($data); $idx++)
+                {
+                    $this->row_number++;
 
-                $this->data_table[$idx] = $data[$idx];
-                $this->data_table[$idx]['row_num'] = $this->row_number;
+                    $this->data_table[$idx] = $data[$idx];
+                    $this->data_table[$idx]['row_num'] = $this->row_number;
+                }
+                $this->create_pager();
             }
-            $this->create_pager();
+            $qry->free_result();
         }
         return $this;
     }

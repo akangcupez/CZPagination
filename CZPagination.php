@@ -172,9 +172,10 @@ class CZPagination extends CI_Model
         $this->row_per_page = (intval($this->config['per_page']));
         $this->row_per_page = ($this->row_per_page < 1) ? 1 : $this->row_per_page;
         $this->total_links  = ceil($this->total_rows / $this->row_per_page);
+        $this->page         = intval($this->config['page_number']);
         $this->row_number   = $this->set_row_number();
 
-        $this->active_page  = intval($this->config['page_number']);
+        $this->active_page  = $this->page;
         if($this->active_page < 1)
         {
             $this->active_page = 1;

@@ -237,7 +237,7 @@ class CZPagination extends CI_Model
 
             for($idx = ($this->active_page + 1); $idx <= $this->total_links; $idx++)
             {
-                $pager['pages'] = $idx;
+                $pager['pages'][] = $idx;
                 if($idx >= ($this->active_page + $this->total_links)) break;
             }
 

@@ -62,7 +62,7 @@ $pagination = $cz->create_links();
 **More Configurations Example:**
 
 ```php
-*Notes: show_current will be ignored if show_digits is set to TRUE (it will be showned anyway)*
+//Notes: show_current will be ignored if show_digits is set to TRUE (it will be shown anyway)
 
 $config = array(
     'base_url'          => 'http://domain',

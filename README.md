@@ -23,20 +23,20 @@ Another advantage is that this library will generate LIMIT for your query. Hence
 
 Load the library
 
-```
+```php
 $this->load->library('CZPagination');
 ```
 
 Setup SQL and Parameters (no need to add LIMIT)
 
-```
+```php
 $sql = "SELECT * FROM table_name WHERE ID = ?";
 $params = array($id);
 ```
 
 Define the page number (assumes using page segment)
 
-```
+```php
 $page_number = $this->uri->segment(3);
 ```
 
@@ -44,7 +44,7 @@ Setup config and execute (see examples)
 
 **Basic Example:**
 
-```
+```php
 $config = array(
     'base_url' => 'http://domain',
     'sql' => $sql,
@@ -61,22 +61,30 @@ $pagination = $cz->create_links();
 
 **More Configurations Example:**
 
-```
+```php
+*Notes: show_current will be ignored if show_digits is set to TRUE (it will be showned anyway)*
+
 $config = array(
-    'base_url' => 'http://domain',
-    'sql' => $sql, 
-    'params' => $params,
-    'page_number' => $page_number,
-    'full_tag_open' => '<ul class="pagination">',
-    'full_tag_close' => '</ul>',
-    'page_tag_open' => '<li>',
-    'page_tag_close' => '</li>',
-    'first_link' => '<span><i class="fa fa-angle-double-left"></i></span>',
-    'last_link' => '<span><i class="fa fa-angle-double-right"></i></span>',
-    'prev_link' => '<span><i class="fa fa-angle-left"></i></span>',
-    'next_link' => '<span><i class="fa fa-angle-right"></i></span>',
-    'cur_tag_open' => '<li class="active">',
-    'cur_tag_close' => '</li>'
+    'base_url'          => 'http://domain',
+    'sql'               => $sql, 
+    'params'            => $params,
+    'page_number'       => $page_number,
+    'full_tag_open'     => '<ul class="pagination">',
+    'full_tag_close'    => '</ul>',
+    'page_tag_open'     => '<li>',
+    'page_tag_close'    => '</li>',
+    'first_link'        => '<span><i class="fa fa-angle-double-left"></i></span>',
+    'last_link'         => '<span><i class="fa fa-angle-double-right"></i></span>',
+    'prev_link'         => '<span><i class="fa fa-angle-left"></i></span>',
+    'next_link'         => '<span><i class="fa fa-angle-right"></i></span>',
+    'cur_tag_open'      => '<li class="active">',
+    'cur_tag_close'     => '</li>'
+    'show_first'        => true,
+    'show_prev'         => true,
+    'show_next'         => true,
+    'show_last'         => true,
+    'show_current'      => false,
+    'show_digits'       => true
 );
 
 $cz = new CZPagination();
@@ -85,7 +93,7 @@ $pagination = $cz->create_links();
 
 ```
 
-# MIT License
+# License
 **The MIT License (MIT)**
 
 Copyright (c) 2015 akangcupez

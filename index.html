@@ -1,37 +1,25 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="CZPagination : Codeigniter Pagination Library">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>CZPagination</title>
+    <meta charset="UTF-8">
+    <title>CZPagination by akangcupez</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header">
+      <h1 class="project-name">CZPagination</h1>
+      <h2 class="project-tagline">Codeigniter Pagination Library</h2>
+      <a href="https://github.com/akangcupez/CZPagination" class="btn">View on GitHub</a>
+      <a href="https://github.com/akangcupez/CZPagination/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/akangcupez/CZPagination/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/akangcupez/CZPagination">View on GitHub</a>
-
-          <h1 id="project_title">CZPagination</h1>
-          <h2 id="project_tagline">Codeigniter Pagination Library</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/akangcupez/CZPagination/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/akangcupez/CZPagination/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
+    <section class="main-content">
+      <h1>
 <a id="czpagination" class="anchor" href="#czpagination" aria-hidden="true"><span class="octicon octicon-link"></span></a>CZPagination</h1>
 
 <h3>
@@ -66,65 +54,68 @@ The difference is that this library will not just create pagination links, but a
 
 <p>Load the library</p>
 
-<pre><code>$this-&gt;load-&gt;library('CZPagination');
-</code></pre>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>library(<span class="pl-s"><span class="pl-pds">'</span>CZPagination<span class="pl-pds">'</span></span>);</span></pre></div>
 
 <p>Setup SQL and Parameters (no need to add LIMIT)</p>
 
-<pre><code>$sql = "SELECT * FROM table_name WHERE ID = ?";
-$params = array($id);
-</code></pre>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$sql</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s1"><span class="pl-k">SELECT</span> <span class="pl-k">*</span> <span class="pl-k">FROM</span> table_name <span class="pl-k">WHERE</span> ID <span class="pl-k">=</span> ?</span><span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$params</span> <span class="pl-k">=</span> <span class="pl-c1">array</span>(<span class="pl-smi">$id</span>);</span></pre></div>
 
 <p>Define the page number (assumes using page segment)</p>
 
-<pre><code>$page_number = $this-&gt;uri-&gt;segment(3);
-</code></pre>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$page_number</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">uri</span><span class="pl-k">-&gt;</span>segment(<span class="pl-c1">3</span>);</span></pre></div>
 
 <p>Setup config and execute (see examples)</p>
 
 <p><strong>Basic Example:</strong></p>
 
-<pre><code>$config = array(
-    'base_url' =&gt; 'http://domain',
-    'sql' =&gt; $sql,
-    'params' =&gt; $params,
-    'per_page' =&gt; 20,
-    'page_number' =&gt; $page_number
-);
-
-$cz = new CZPagination();
-$cz-&gt;initialize($config);
-$data = $cz-&gt;get_data();
-$pagination = $cz-&gt;create_links();
-</code></pre>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$config</span> <span class="pl-k">=</span> <span class="pl-c1">array</span>(</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>base_url<span class="pl-pds">'</span></span>    <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>http://domain<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>sql<span class="pl-pds">'</span></span>         <span class="pl-k">=&gt;</span> <span class="pl-smi">$sql</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>params<span class="pl-pds">'</span></span>      <span class="pl-k">=&gt;</span> <span class="pl-smi">$params</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>per_page<span class="pl-pds">'</span></span>    <span class="pl-k">=&gt;</span> <span class="pl-c1">20</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>page_number<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-smi">$page_number</span></span>
+<span class="pl-s1">);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$cz</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">CZPagination</span>();</span>
+<span class="pl-s1"><span class="pl-smi">$cz</span><span class="pl-k">-&gt;</span>initialize(<span class="pl-smi">$config</span>);</span>
+<span class="pl-s1"><span class="pl-smi">$data</span>       <span class="pl-k">=</span> <span class="pl-smi">$cz</span><span class="pl-k">-&gt;</span>get_data();</span>
+<span class="pl-s1"><span class="pl-smi">$pagination</span> <span class="pl-k">=</span> <span class="pl-smi">$cz</span><span class="pl-k">-&gt;</span>create_links();</span></pre></div>
 
 <p><strong>More Configurations Example:</strong></p>
 
-<pre><code>$config = array(
-    'base_url' =&gt; 'http://domain',
-    'sql' =&gt; $sql, 
-    'params' =&gt; $params,
-    'page_number' =&gt; $page_number,
-    'full_tag_open' =&gt; '&lt;ul class="pagination"&gt;',
-    'full_tag_close' =&gt; '&lt;/ul&gt;',
-    'page_tag_open' =&gt; '&lt;li&gt;',
-    'page_tag_close' =&gt; '&lt;/li&gt;',
-    'first_link' =&gt; '&lt;span&gt;&lt;i class="fa fa-angle-double-left"&gt;&lt;/i&gt;&lt;/span&gt;',
-    'last_link' =&gt; '&lt;span&gt;&lt;i class="fa fa-angle-double-right"&gt;&lt;/i&gt;&lt;/span&gt;',
-    'prev_link' =&gt; '&lt;span&gt;&lt;i class="fa fa-angle-left"&gt;&lt;/i&gt;&lt;/span&gt;',
-    'next_link' =&gt; '&lt;span&gt;&lt;i class="fa fa-angle-right"&gt;&lt;/i&gt;&lt;/span&gt;',
-    'cur_tag_open' =&gt; '&lt;li class="active"&gt;',
-    'cur_tag_close' =&gt; '&lt;/li&gt;'
-);
-
-$cz = new CZPagination();
-$data = $cz-&gt;initialize($config)-&gt;get_data();
-$pagination = $cz-&gt;create_links();
-
-</code></pre>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c">//Notes: show_current will be ignored if show_digits is set to TRUE (it will be shown anyway)</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$config</span> <span class="pl-k">=</span> <span class="pl-c1">array</span>(</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>base_url<span class="pl-pds">'</span></span>          <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>http://domain<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>sql<span class="pl-pds">'</span></span>               <span class="pl-k">=&gt;</span> <span class="pl-smi">$sql</span>, </span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>params<span class="pl-pds">'</span></span>            <span class="pl-k">=&gt;</span> <span class="pl-smi">$params</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>page_number<span class="pl-pds">'</span></span>       <span class="pl-k">=&gt;</span> <span class="pl-smi">$page_number</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>full_tag_open<span class="pl-pds">'</span></span>     <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;ul class="pagination"&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>full_tag_close<span class="pl-pds">'</span></span>    <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;/ul&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>page_tag_open<span class="pl-pds">'</span></span>     <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;li&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>page_tag_close<span class="pl-pds">'</span></span>    <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;/li&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>first_link<span class="pl-pds">'</span></span>        <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;span&gt;&lt;i class="fa fa-angle-double-left"&gt;&lt;/i&gt;&lt;/span&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>last_link<span class="pl-pds">'</span></span>         <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;span&gt;&lt;i class="fa fa-angle-double-right"&gt;&lt;/i&gt;&lt;/span&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>prev_link<span class="pl-pds">'</span></span>         <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;span&gt;&lt;i class="fa fa-angle-left"&gt;&lt;/i&gt;&lt;/span&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>next_link<span class="pl-pds">'</span></span>         <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;span&gt;&lt;i class="fa fa-angle-right"&gt;&lt;/i&gt;&lt;/span&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>cur_tag_open<span class="pl-pds">'</span></span>      <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;li class="active"&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>cur_tag_close<span class="pl-pds">'</span></span>     <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;/li&gt;<span class="pl-pds">'</span></span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>show_first<span class="pl-pds">'</span></span>        <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>show_prev<span class="pl-pds">'</span></span>         <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>show_next<span class="pl-pds">'</span></span>         <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>show_last<span class="pl-pds">'</span></span>         <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>show_current<span class="pl-pds">'</span></span>      <span class="pl-k">=&gt;</span> <span class="pl-c1">false</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>show_digits<span class="pl-pds">'</span></span>       <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span></span>
+<span class="pl-s1">);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$cz</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">CZPagination</span>();</span>
+<span class="pl-s1"><span class="pl-smi">$data</span> <span class="pl-k">=</span> <span class="pl-smi">$cz</span><span class="pl-k">-&gt;</span>initialize(<span class="pl-smi">$config</span>)<span class="pl-k">-&gt;</span>get_data();</span>
+<span class="pl-s1"><span class="pl-smi">$pagination</span> <span class="pl-k">=</span> <span class="pl-smi">$cz</span><span class="pl-k">-&gt;</span>create_links();</span>
+<span class="pl-s1"></span></pre></div>
 
 <h1>
-<a id="mit-license" class="anchor" href="#mit-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>MIT License</h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
 
 <p><strong>The MIT License (MIT)</strong></p>
 
@@ -140,18 +131,15 @@ $pagination = $cz-&gt;create_links();
 <a id="notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h1>
 
 <p>All brands i.e <a href="http://www.codeigniter.com/">Codeigniter</a>, <a href="http://getbootstrap.com/">Twitter Bootstrap</a> and <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a> are trademarks of their respective owners.</p>
-      </section>
-    </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">CZPagination maintained by <a href="https://github.com/akangcupez">akangcupez</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/akangcupez/CZPagination">CZPagination</a> is maintained by <a href="https://github.com/akangcupez">akangcupez</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
 
-    
+    </section>
 
+  
   </body>
 </html>

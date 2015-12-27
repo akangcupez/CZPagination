@@ -38,6 +38,7 @@
  */
 class CZPagination extends CI_Model
 {
+    #Notes: show_current will be ignored if show_digits is set to TRUE (it will be showned anyway)
     private $config = array
     (
         'base_url'          => '',
@@ -55,7 +56,13 @@ class CZPagination extends CI_Model
         'prev_link'         => '<span><i class="fa fa-angle-left"></i></span>',
         'next_link'         => '<span><i class="fa fa-angle-right"></i></span>',
         'cur_tag_open'      => '<li class="active">',
-        'cur_tag_close'     => '</li>'
+        'cur_tag_close'     => '</li>',
+        'show_first'        => true,
+        'show_prev'         => true,
+        'show_next'         => true,
+        'show_last'         => true,
+        'show_current'      => false,
+        'show_digits'       => true
     );
 
     private $sql            = null;
@@ -208,7 +215,7 @@ class CZPagination extends CI_Model
 
     private function show_first() { return ($this->active_page > ($this->num_links + 1)); }
 
-    private function show_last() { return ($this->active_page < ($this->num_links + 2)); }
+    private function show_last() { return ($this->active_page < ($this->total_links - $this->num_links)); }
 
     private function create_pager()
     {
@@ -315,23 +322,29 @@ class CZPagination extends CI_Model
         {
             $pagination = $this->config['full_tag_open'];
 
-            $pagination .= $this->generate_list($this->pager['first'], $this->config['first_link']);
-            $pagination .= $this->generate_list($this->pager['prev'], $this->config['prev_link']);
+            if($this->config['show_first']) $pagination .= $this->generate_list($this->pager['first'], $this->config['first_link']);
+            if($this->config['show_prev']) $pagination .= $this->generate_list($this->pager['prev'], $this->config['prev_link']);
 
             if($this->validate_array($this->pager['pages']))
             {
-                foreach($this->pager['pages'] as $page)
+                if($this->config['show_digits'] === true)
                 {
-                    $pagination .= $this->generate_list($page, $page);
+                    foreach($this->pager['pages'] as $page)
+                    {
+                        $pagination .= $this->generate_list($page, $page);
+                    }
+                }
+                if($this->config['show_digits'] === false && $this->config['show_current'] === true)
+                {
+                    $pagination .= $this->generate_list($this->active_page, $this->active_page);
                 }
             }
 
-            $pagination .= $this->generate_list($this->pager['next'], $this->config['next_link']);
-            $pagination .= $this->generate_list($this->pager['last'], $this->config['last_link']);
+            if($this->config['show_prev']) $pagination .= $this->generate_list($this->pager['next'], $this->config['next_link']);
+            if($this->config['show_last']) $pagination .= $this->generate_list($this->pager['last'], $this->config['last_link']);
 
             $pagination .= $this->config['full_tag_close'];
         }
         return $pagination;
     }
-
 }
